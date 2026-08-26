@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kumush uchun... ❤️</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+        }
+
+        /* 9:16 Mobil Konteyneri */
+        .phone-card {
+            background: rgba(255, 255, 255, 0.94);
+            backdrop-filter: blur(10px);
+            width: 360px;
+            height: 640px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(214, 51, 132, 0.25);
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            border: 2px solid rgba(255, 255, 255, 0.6);
+        }
+
+        h2 {
+            color: #d63384;
+            font-size: 22px;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+
+        .step-box {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .btn-container {
+            width: 100%;
+            height: 160px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        button {
+            padding: 14px 28px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease;
+            outline: none;
+        }
+
+        .btn-yes {
+            background: linear-gradient(45deg, #11998e, #38ef7d);
+            color: white;
+            z-index: 2;
+        }
+
+        .btn-yes:active {
+            transform: scale(0.95);
+        }
+
+        .btn-no {
+            background: linear-gradient(45deg, #ff416c, #ff4b2b);
+            color: white;
+            position: absolute;
+            z-index: 10;
+            transition: left 0.15s ease, top 0.15s ease;
+        }
+
+        textarea {
+            width: 90%;
+            height: 100px;
+            margin-bottom: 15px;
+            padding: 12px;
+            border-radius: 15px;
+            border: 2px solid #ffccd5;
+            outline: none;
+            font-family: inherit;
+            font-size: 14px;
+            resize: none;
+        }
+
+        textarea:focus {
+            border-color: #d63384;
+        }
+
+        .letter-box {
+            background: #fff5f7;
+            border: 2px dashed #ffb6c1;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 14px;
+            color: #444;
+            line-height: 1.5;
+            margin-bottom: 20px;
+            text-align: left;
+            max-height: 250px;
+            overflow-y: auto;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .flower-img {
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 50%;
+            box-shadow: 0 10px 25px rgba(214, 51, 132, 0.3);
+            animation: pulse 2s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.96); }
+            100% { transform: scale(1.04); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="phone-card">
+    <!-- 1-BOSQICH -->
+    <div id="step1" class="step-box">
+        <h2>Kumush, mendan xafa bo'ldingizmi? 🥺</h2>
+        <div class="btn-container" id="area1">
+            <button class="btn-yes" onclick="nextStep(2)">Ha</button>
+            <button class="btn-no" id="noBtn" onmouseover="moveButton('noBtn', 'area1')" onclick="moveButton('noBtn', 'area1')" ontouchstart="moveButton('noBtn', 'area1')">Yo'q</button>
+        </div>
+    </div>
+
+    <!-- 2-BOSQICH: SABABINI YOZISH -->
+    <div id="step2" class="step-box hidden">
+        <h2>Nega xafa bo'ldingiz? Sababini yozing... ✍️</h2>
+        <form style="width: 100%;" action="https://formspree.io/f/xaewrgaw" method="POST" onsubmit="submitReason(event)">
+            <textarea name="sababi" required placeholder="Sababini shu yerga yozing..."></textarea><br>
+            <button type="submit" class="btn-yes">Yuborish</button>
+        </form>
+    </div>
+
+    <!-- 3-BOSQICH: UZR MAKTUBI -->
+    <div id="step3" class="step-box hidden">
+        <h2>Mening Uzr Maktubim 💌</h2>
+        <div class="letter-box">
+            <p><strong>Balki bilib-bilmay ko'nglingizni og'ritgandirga o'xshayman... 😔</strong></p><br>
+            <p>Sizning tabassumingiz va kayfiyatingiz men uchun juda qadrli. Agar biron bir gapim yoki harakatim sabab xafa bo'lgan bo'lsangiz, chin ko'nglimdan uzr so'rayman. Qaytadan yaxshi kayfiyatga qaytishingizni juda xohlayman! ✨</p>
+        </div>
+        <button class="btn-yes" onclick="nextStep(4)">Davom etish 👉</button>
+    </div>
+
+    <!-- 4-BOSQICH: KECHIRDINGIZMI -->
+    <div id="step4" class="step-box hidden">
+        <h2>Meni kechirdingizmi? 🥹</h2>
+        <div class="btn-container" id="area2">
+            <button class="btn-yes" onclick="nextStep(5)">Ha</button>
+            <button class="btn-no" id="noBtn2" onmouseover="moveButton('noBtn2', 'area2')" onclick="moveButton('noBtn2', 'area2')" ontouchstart="moveButton('noBtn2', 'area2')">Yo'q</button>
+        </div>
+    </div>
+
+    <!-- 5-BOSQICH: RAHMAT VA ATIRGUL RASMI -->
+    <div id="step5" class="step-box hidden">
+        <h2>Rahmat! ❤️✨</h2>
+        <img class="flower-img" src="https://www.blossominggifts.com/blog/wp-content/uploads/2024/01/red-rose-flowers-840x473.jpg" alt="Chiroyli Qizil Atirgul">
+    </div>
+</div>
+
+<script>
+    function nextStep(step) {
+        for (let i = 1; i <= 5; i++) {
+            document.getElementById('step' + i).classList.add('hidden');
+        }
+        document.getElementById('step' + step).classList.remove('hidden');
+    }
+
+    function moveButton(btnId, containerId) {
+        const btn = document.getElementById(btnId);
+        const container = document.getElementById(containerId);
+
+        const containerRect = container.getBoundingClientRect();
+        const btnWidth = btn.offsetWidth;
+        const btnHeight = btn.offsetHeight;
+
+        const maxX = containerRect.width - btnWidth;
+        const maxY = containerRect.height - btnHeight;
+
+        const randomX = Math.floor(Math.random() * maxX);
+        const randomY = Math.floor(Math.random() * maxY);
+
+        btn.style.left = randomX + 'px';
+        btn.style.top = randomY + 'px';
+    }
+
+    function submitReason(event) {
+        event.preventDefault();
+        const form = event.target;
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+        }).then(response => {
+            nextStep(3);
+        }).catch(error => {
+            alert("Xatolik bo'ldi, qaytadan urinib ko'ring.");
+        });
+    }
+</script>
+
+</body>
+</html>
