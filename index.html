@@ -64,7 +64,7 @@
         }
 
         button {
-            padding: 14px 28px;
+            padding: 14px 32px;
             font-size: 16px;
             font-weight: 600;
             border: none;
@@ -146,12 +146,11 @@
 <body>
 
 <div class="phone-card">
-    <!-- 1-BOSQICH -->
+    <!-- 1-BOSQICH (Faqat Ha tugmasi bilan) -->
     <div id="step1" class="step-box">
         <h2>Kumush, mendan xafa bo'ldingizmi? 🥺</h2>
-        <div class="btn-container" id="area1">
+        <div style="margin-top: 20px;">
             <button class="btn-yes" onclick="nextStep(2)">Ha</button>
-            <button class="btn-no" id="noBtn" onmouseover="moveButton('noBtn', 'area1')" onclick="moveButton('noBtn', 'area1')" ontouchstart="moveButton('noBtn', 'area1')">Yo'q</button>
         </div>
     </div>
 
@@ -174,7 +173,7 @@
         <button class="btn-yes" onclick="nextStep(4)">Davom etish 👉</button>
     </div>
 
-    <!-- 4-BOSQICH: KECHIRDINGIZMI -->
+    <!-- 4-BOSQICH: KECHIRDINGIZMI (Qochadigan Yo'q tugmasi shu yerda) -->
     <div id="step4" class="step-box hidden">
         <h2>Meni kechirdingizmi? 🥹</h2>
         <div class="btn-container" id="area2">
