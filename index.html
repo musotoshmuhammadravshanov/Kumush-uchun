@@ -11,186 +11,153 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
+            height: 100vh;
             margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
+            overflow: hidden;
         }
         .card {
             background-color: #ffffff;
             border-radius: 20px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            padding: 30px;
-            max-width: 500px;
-            width: 100%;
+            padding: 40px 30px;
+            max-width: 420px;
+            width: 90%;
             text-align: center;
+            position: relative;
         }
-        h2 { color: #ff4b2b; margin-top: 0; }
-        .step { display: none; }
-        .step.active { display: block; }
-        .question-text {
-            font-size: 18px;
-            font-weight: 600;
+        h2 {
+            color: #ff4b2b;
+            margin-top: 0;
+            font-size: 24px;
+        }
+        p.question {
             color: #333;
-            margin-bottom: 15px;
+            font-size: 19px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            line-height: 1.4;
+            min-height: 60px;
         }
-        input[type="text"] {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #ffe1e1;
-            border-radius: 10px;
-            outline: none;
-            box-sizing: border-box;
-            font-size: 15px;
-            margin-bottom: 15px;
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            position: relative;
+            min-height: 50px;
         }
-        button {
-            background: linear-gradient(to right, #ff416c, #ff4b2b);
-            color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 25px;
+        .btn {
+            padding: 12px 28px;
             font-size: 16px;
             font-weight: bold;
+            border: none;
+            border-radius: 25px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: transform 0.2s ease;
         }
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(255, 75, 43, 0.4);
+        .btn-yes {
+            background: linear-gradient(to right, #ff416c, #ff4b2b);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 75, 43, 0.4);
         }
-        .answer-box {
-            margin-top: 20px;
-            padding: 15px;
-            background-color: #fff0f3;
-            border-left: 4px solid #ff4b2b;
-            border-radius: 8px;
-            text-align: left;
+        .btn-yes:hover {
+            transform: scale(1.1);
         }
-        .answer-box p { margin: 5px 0; color: #444; }
-        .answer-box .my-reply { font-weight: bold; color: #ff4b2b; margin-top: 10px; }
+        .btn-no {
+            background-color: #e0e0e0;
+            color: #666;
+            position: absolute;
+            transition: all 0.15s ease;
+        }
+        .result-box {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        .result-box h3 {
+            color: #ff4b2b;
+            font-size: 22px;
+        }
+        .result-box p {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.5;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
     </style>
 </head>
 <body>
 
 <div class="card">
-    <h2>Kumush ✨</h2>
-    
-    <form id="quizForm">
-        <!-- 1-Savol -->
-        <div class="step active" id="step1">
-            <p class="question-text">1. Bilasizmi, dunyo olimlari qariyb 100 yildan beri nimani aniqlay olishmayapti?</p>
-            <input type="text" id="input1" placeholder="Sizning javobingiz..." required>
-            <button type="button" onclick="revealAnswer(1)">Javob berish 💌</button>
-            
-            <div class="answer-box" id="ans1" style="display:none;">
-                <p class="my-reply">Mening javobim:</p>
-                <p>Sizning birgina tabassumingiz qanday qilib atrofdagi hamma narsani bir zumda go'zal qilib yuborishini!</p>
-                <br>
-                <button type="button" onclick="nextStep(2)">Keyingi savol ➔</button>
-            </div>
+    <div id="quizContent">
+        <h2>Kumush ✨</h2>
+        <p class="question" id="questionText">1. Men bilan suhbat qurish sizga yoqadimi? 😊</p>
+        
+        <div class="btn-group">
+            <button class="btn btn-yes" onclick="handleYes()">Ha, albatta! ❤️</button>
+            <button class="btn btn-no" id="noBtn" onmouseover="moveButton()" onclick="moveButton()">Yo'q 😜</button>
         </div>
+    </div>
 
-        <!-- 2-Savol -->
-        <div class="step" id="step2">
-            <p class="question-text">2. Yer yuzidagi eng shinam va osoishta joy qayerdaligini bilasizmi?</p>
-            <input type="text" id="input2" placeholder="Sizning javobingiz..." required>
-            <button type="button" onclick="revealAnswer(2)">Javob berish 💌</button>
-            
-            <div class="answer-box" id="ans2" style="display:none;">
-                <p class="my-reply">Mening javobim:</p>
-                <p>Sizning qoshingizda, siz kulib turgan daqiqalar.</p>
-                <br>
-                <button type="button" onclick="nextStep(3)">Keyingi savol ➔</button>
-            </div>
-        </div>
-
-        <!-- 3-Savol -->
-        <div class="step" id="step3">
-            <p class="question-text">3. Agar sizga dunyodagi istalgan sehrli kuch berilsa, nimani tanlagan bo'lardingiz?</p>
-            <input type="text" id="input3" placeholder="Sizning javobingiz..." required>
-            <button type="button" onclick="revealAnswer(3)">Javob berish 💌</button>
-            
-            <div class="answer-box" id="ans3" style="display:none;">
-                <p class="my-reply">Mening javobim:</p>
-                <p>Men esa har safar kayfiyatingiz tushganda, bir sekundda kuldirib qo'yadigan sehrli kuchni tanlardim!</p>
-                <br>
-                <button type="button" onclick="nextStep(4)">Keyingi savol ➔</button>
-            </div>
-        </div>
-
-        <!-- 4-Savol -->
-        <div class="step" id="step4">
-            <p class="question-text">4. Bugun sizga dunyodagi eng maza shirinlikni olib bermoqchiman. Qaysi birini tanlaysiz?</p>
-            <input type="text" id="input4" placeholder="Sizning javobingiz..." required>
-            <button type="button" onclick="revealAnswer(4)">Javob berish 💌</button>
-            
-            <div class="answer-box" id="ans4" style="display:none;">
-                <p class="my-reply">Mening javobim:</p>
-                <p>Yaxshi, lekin baribir u sizning kulgichingizcha (yoki ko'zlaringizdagi nur kabi) shirin bo'lolmaydi.</p>
-                <br>
-                <button type="button" onclick="nextStep(5)">Keyingi savol ➔</button>
-            </div>
-        </div>
-
-        <!-- 5-Savol -->
-        <div class="step" id="step5">
-            <p class="question-text">5. Kumush, sizga bitta jiddiy e'tirozim bor... Bugun kuningizni g'amgin o'tkazishga kim ruxsat berdi?</p>
-            <input type="text" id="input5" placeholder="Sizning javobingiz..." required>
-            <button type="button" onclick="revealAnswer(5)">Javob berish 💌</button>
-            
-            <div class="answer-box" id="ans5" style="display:none;">
-                <p class="my-reply">Mening javobim:</p>
-                <p>Tezda kayfiyatni 100% ga ko'taramiz, aks holda sizni tinmay kuldirishga majbur bo'laman!</p>
-                <br>
-                <button type="button" onclick="sendData()">Tugatish va yuborish ❤️</button>
-            </div>
-        </div>
-    </form>
+    <div class="result-box" id="resultContent">
+        <h2>Uraaa! 🎉</h2>
+        <h3>Baribir boshqa tanlovingiz yo'q edi! 😉</h3>
+        <p>Barcha savollarga faqat **"HA"** deb javob berganingiz uchun rahmat! Siz bilan suhbatlashish va yaqin bo'lish men uchun juda qadrli. Bugungi kuningiz a'lo kayfiyatda o'tsin! ✨</p>
+    </div>
 </div>
 
 <script>
-    function revealAnswer(stepNum) {
-        const input = document.getElementById('input' + stepNum);
-        if (input.value.trim() === "") {
-            alert("Iltimos, avval o'z javobingizni yozing! 😊");
-            return;
+    const questions = [
+        "1. Men bilan suhbat qurish sizga yoqadimi? 😊",
+        "2. Men sizning eng yaqin do'stingizmanmi? 🤝",
+        "3. Bugun kayfiyatingizni 100% ga ko'tarishimga ruxsat berasizmi? ✨"
+    ];
+
+    let currentQuestion = 0;
+    const userAnswers = [];
+
+    function moveButton() {
+        const noBtn = document.getElementById('noBtn');
+        
+        const x = Math.random() * (window.innerWidth - noBtn.offsetWidth - 40);
+        const y = Math.random() * (window.innerHeight - noBtn.offsetHeight - 40);
+        
+        noBtn.style.position = 'fixed';
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+    }
+
+    function handleYes() {
+        userAnswers.push(questions[currentQuestion] + " -> HA");
+        
+        currentQuestion++;
+
+        if (currentQuestion < questions.length) {
+            document.getElementById('questionText').innerText = questions[currentQuestion];
+            
+            // Yo'q tugmasini yana o'z joyiga qaytarish
+            const noBtn = document.getElementById('noBtn');
+            noBtn.style.position = 'absolute';
+            noBtn.style.left = 'auto';
+            noBtn.style.top = 'auto';
+        } else {
+            // Barcha savollar tugagach
+            document.getElementById('quizContent').style.display = 'none';
+            document.getElementById('resultContent').style.display = 'block';
+
+            // Formspree orqali pochtaga yuborish
+            fetch("https://formspree.io/f/xzebpykw", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Accept": "application/json"
+                },
+                body: JSON.stringify({
+                    Javoblar: userAnswers.join(" | ")
+                })
+            });
         }
-        document.getElementById('ans' + stepNum).style.display = 'block';
-    }
-
-    function nextStep(nextStepNum) {
-        document.querySelector('.step.active').classList.remove('active');
-        document.getElementById('step' + nextStepNum).classList.add('active');
-    }
-
-    function sendData() {
-        const answers = {
-            Savol_1: document.getElementById('input1').value,
-            Savol_2: document.getElementById('input2').value,
-            Savol_3: document.getElementById('input3').value,
-            Savol_4: document.getElementById('input4').value,
-            Savol_5: document.getElementById('input5').value
-        };
-
-        fetch("https://formspree.io/f/xzebpykw", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-            body: JSON.stringify(answers)
-        })
-        .then(response => {
-            if (response.ok) {
-                alert("Rahmat! Javoblaringiz yuborildi ❤️");
-            } else {
-                alert("Xatolik yuz berdi. Formspree ID to'g'riligini va pochtada tasdiqlash xati kelganini tekshiring.");
-            }
-        })
-        .catch(error => {
-            alert("Xatolik yuz berdi!");
-        });
     }
 </script>
 
